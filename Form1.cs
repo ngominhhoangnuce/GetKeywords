@@ -50,9 +50,10 @@ namespace GetKeywords
             NextStepDelay[7] = 2;
             NextStepDelay[8] = 2;
             NextStepDelay[9] = 2;
+            NextStepDelay[10] = 2;
 
             StepTimer[0] = 2;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
                 StepTimer[i + 1] = StepTimer[i] + NextStepDelay[i];
             }
@@ -72,12 +73,13 @@ namespace GetKeywords
         {
 
 
-            //if (cboPlan.SelectedIndex == 0) // Lựa chọn Login
-            //{
-
-            //    tmrPlan01.Interval = Convert.ToInt16(txtSpeed.Text);
-            //    tmrPlan01.Start();
-            //}
+            if (cboPlan.SelectedIndex == 0) // Lựa chọn Login
+            {
+                progressBar1.Maximum = 12; // số lượng các thao tác trong kế hoạch.
+                progressBar1.Value = 0;
+                tmrPlan02.Interval = Convert.ToInt16(txtSpeed.Text);
+                tmrPlan02.Start();
+            }
             if (cboPlan.SelectedIndex == 1) // Lựa chọn Get Keywords
             {
 
@@ -86,14 +88,19 @@ namespace GetKeywords
                 tmrPlan01.Interval = Convert.ToInt16(txtSpeed.Text);
                 tmrPlan01.Start();
             }
-
+            if (cboPlan.SelectedIndex == 2) // Dowload keywords tiếp theo
+            {
+                progressBar1.Maximum = 7; // số lượng các thao tác trong kế hoạch.
+                progressBar1.Value = 0;
+                tmrPlan03.Interval = Convert.ToInt16(txtSpeed.Text);
+                tmrPlan03.Start();
+            }
         }
 
         private void AddList(string str)
         {
             lstStatus.Items.Add(str);
         }
-
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -109,6 +116,7 @@ namespace GetKeywords
 
                 progressBar1.Value += 1;
             }
+    
             if (alarmCounter == StepTimer[1]) //input text search
             {
                 SendKeys.Send(txtKeywords.Text);
@@ -184,10 +192,6 @@ namespace GetKeywords
             }
         }
 
-
-
-
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -198,7 +202,7 @@ namespace GetKeywords
             cboPlan.Items.Clear();
             cboPlan.Items.Add("Login");
             cboPlan.Items.Add("Get keywords");
-
+            cboPlan.Items.Add("Dowload Keywords tiếp theo");
             // Mở kết nối file excel
             //f.fileName = "Keyword Tool Export -Keyword Suggestions - " + CurrentKeywords;
 
@@ -229,15 +233,13 @@ namespace GetKeywords
                 //dgrListKeywords.DataSource = dataTable;
                 //dgrListKeywords.Columns.Add( ("clnKey", "Keywords");
                 int i = 1;
-                while (excelWorksheet.Cells[i,1].Value != null)
+                while (excelWorksheet.Cells[i, 1].Value != null)
                 {
-                    dgrListKeywords.Rows.Add(excelWorksheet.Cells[i,1].Value);
-                    i++; 
+                    dgrListKeywords.Rows.Add(excelWorksheet.Cells[i, 1].Value);
+                    i++;
                 }
             }
         }
-   
-
         private void openExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -268,7 +270,7 @@ namespace GetKeywords
             {
                 for (int j = 0; j < dgrListKeywords.Columns.Count; j++)
                 {
-                    application.Cells[i+2, j+1] = dgrListKeywords.Rows[i].Cells[j].Value;
+                    application.Cells[i + 2, j + 1] = dgrListKeywords.Rows[i].Cells[j].Value;
                 }
             }
             application.Columns.AutoFit();
@@ -293,20 +295,203 @@ namespace GetKeywords
                 }
             }
         }
-
         private void cboPlan_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
-
+       
         private void timer1_Tick_1(object sender, EventArgs e)
         {
 
+        alarmCounter++;
+            if (alarmCounter == StepTimer[0]) // click export to login
+            {
+                pt.X = 1480;
+                pt.Y = 139;
+                Cursor.Position = pt;
+                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, pt.X, pt.Y, 0, 0);
+                AddList("Click to login");
+
+                progressBar1.Value += 1;
+            }
+            if (alarmCounter == StepTimer[1]) // click export to tai khoan
+            {
+                pt.X = 966;
+                pt.Y = 421;
+                Cursor.Position = pt;
+                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, pt.X, pt.Y, 0, 0);
+                AddList("Focus to Taikhoan");
+
+                progressBar1.Value += 1;
+            }
+            if (alarmCounter == StepTimer[2]) //input text taikhoan
+            {
+                SendKeys.Send(txttaikhoan.Text);
+                AddList("input Text Taikhoan");
+
+                progressBar1.Value += 1;
+            }
+            if (alarmCounter == StepTimer[3]) //focus text matkhau
+            {
+                pt.X = 833;
+                pt.Y = 513;
+                Cursor.Position = pt;
+                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, pt.X, pt.Y, 0, 0);
+                AddList("Focus to Matkhau");
+
+                progressBar1.Value += 1;
+            }
+            if (alarmCounter == StepTimer[4]) //input text matkhau
+            {
+                SendKeys.Send(txtmatkhau.Text);
+                AddList("input Text MatKhau");
+
+                progressBar1.Value += 1;
+            }
+            if (alarmCounter == StepTimer[5]) // click search
+            {
+                pt.X = 599;
+                pt.Y = 605;
+                Cursor.Position = pt;
+                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, pt.X, pt.Y, 0, 0);
+                AddList("Click Search");
+
+               progressBar1.Value += 1;
+            }
+
+            if (alarmCounter == StepTimer[6]) //focus text search
+            {
+                pt.X = 772;
+                pt.Y = 519;
+                Cursor.Position = pt;
+                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, pt.X, pt.Y, 0, 0);
+                AddList("Focus to Search");
+
+                progressBar1.Value += 1;
+            }
+            if (alarmCounter == StepTimer[7]) //input text search
+            {
+                SendKeys.Send(txtKeywords.Text);
+                AddList("input Text Search");
+
+                progressBar1.Value += 1;
+            }
+
+            if (alarmCounter == StepTimer[8]) // click search
+            {
+                pt.X = 1271;
+                pt.Y = 516;
+                Cursor.Position = pt;
+                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, pt.X, pt.Y, 0, 0);
+                AddList("Click Search");
+
+                progressBar1.Value += 1;
+            }
+
+            if (alarmCounter == StepTimer[9]) // click download button
+            {
+                pt.X = 1590;
+                pt.Y = 988;
+                Cursor.Position = pt;
+                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, pt.X, pt.Y, 0, 0);
+                AddList("Click Download");
+
+                progressBar1.Value += 1;
+            }
+
+            if (alarmCounter == StepTimer[10]) // click export to excel
+            {
+                pt.X = 1563;
+                pt.Y = 794;
+                Cursor.Position = pt;
+                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, pt.X, pt.Y, 0, 0);
+                AddList("Click to excel File");
+
+                progressBar1.Value += 1;
+            }
+            if (alarmCounter == StepTimer[11])
+            {
+                tmrPlan02.Stop();
+                alarmCounter = 0;
+
+                this.WindowState = FormWindowState.Normal;
+                AddList("Finished");
+
+                progressBar1.Value += 1;
+            }
         }
 
-        private void timeSpanChartRangeControlClient1_CustomizeSeries(object sender, DevExpress.XtraEditors.ClientDataSourceProviderCustomizeSeriesEventArgs e)
+        private void tmrPlan03_Tick(object sender, EventArgs e)
         {
+            alarmCounter++;
 
+            if (alarmCounter == StepTimer[0]) //focus text search
+            {
+                pt.X = 754;
+                pt.Y = 280;
+                Cursor.Position = pt;
+                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, pt.X, pt.Y, 0, 0);
+                AddList("Focus to Search");
+
+                progressBar1.Value += 1;
+            }
+            if (alarmCounter == StepTimer[1]) //input text search
+            {
+                SendKeys.SendWait("{Del}");
+                AddList("input Text Search");
+
+                progressBar1.Value += 1;
+            }
+            if (alarmCounter == StepTimer[2]) //input text search
+            {
+                SendKeys.Send(txtKeywords.Text);
+                AddList("input Text Search");
+
+                progressBar1.Value += 1;
+            }
+
+            if (alarmCounter == StepTimer[3]) // click search
+            {
+                pt.X = 1475;
+                pt.Y = 277;
+                Cursor.Position = pt;
+                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, pt.X, pt.Y, 0, 0);
+                AddList("Click Search");
+
+                progressBar1.Value += 1;
+            }
+
+            if (alarmCounter == StepTimer[4]) // click download button
+            {
+                pt.X = 1590;
+                pt.Y = 988;
+                Cursor.Position = pt;
+                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, pt.X, pt.Y, 0, 0);
+                AddList("Click Download");
+
+                progressBar1.Value += 1;
+            }
+
+            if (alarmCounter == StepTimer[5]) // click export to excel
+            {
+                pt.X = 1563;
+                pt.Y = 794;
+                Cursor.Position = pt;
+                mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, pt.X, pt.Y, 0, 0);
+                AddList("Click to excel File");
+
+                progressBar1.Value += 1;
+            }
+            if (alarmCounter == StepTimer[6])
+            {
+                tmrPlan03.Stop();
+                alarmCounter = 0;
+
+                this.WindowState = FormWindowState.Normal;
+                AddList("Finished");
+
+                progressBar1.Value += 1;
+            }
         }
-    }
+    } 
 }
