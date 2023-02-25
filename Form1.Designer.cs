@@ -54,12 +54,15 @@
             this.tmrPlan02 = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.timeSpanChartRangeControlClient1 = new DevExpress.XtraEditors.TimeSpanChartRangeControlClient();
+            this.txttaikhoan = new System.Windows.Forms.TextBox();
+            this.txtmatkhau = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tmrPlan03 = new System.Windows.Forms.Timer(this.components);
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgrListKeywords)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.timeSpanChartRangeControlClient1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnStart
@@ -98,7 +101,8 @@
             this.txtSpeed.Name = "txtSpeed";
             this.txtSpeed.Size = new System.Drawing.Size(44, 20);
             this.txtSpeed.TabIndex = 1;
-            this.txtSpeed.Text = "2000";
+            this.txtSpeed.Text = "1000";
+            this.txtSpeed.TextChanged += new System.EventHandler(this.txtSpeed_TextChanged);
             // 
             // label2
             // 
@@ -133,21 +137,22 @@
             // 
             this.dgrListKeywords.AllowUserToAddRows = false;
             this.dgrListKeywords.AllowUserToDeleteRows = false;
-            this.dgrListKeywords.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dgrListKeywords.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgrListKeywords.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgrListKeywords.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2});
+            this.dgrListKeywords.Cursor = System.Windows.Forms.Cursors.Default;
             this.dgrListKeywords.EnableHeadersVisualStyles = false;
             this.dgrListKeywords.Location = new System.Drawing.Point(18, 191);
             this.dgrListKeywords.Margin = new System.Windows.Forms.Padding(2);
             this.dgrListKeywords.Name = "dgrListKeywords";
             this.dgrListKeywords.ReadOnly = true;
+            this.dgrListKeywords.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dgrListKeywords.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            this.dgrListKeywords.RowHeadersVisible = false;
             this.dgrListKeywords.RowHeadersWidth = 51;
             this.dgrListKeywords.RowTemplate.Height = 24;
-            this.dgrListKeywords.Size = new System.Drawing.Size(201, 339);
+            this.dgrListKeywords.Size = new System.Drawing.Size(218, 339);
             this.dgrListKeywords.TabIndex = 7;
             // 
             // Column1
@@ -246,7 +251,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(226, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(250, 24);
             this.menuStrip1.TabIndex = 11;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -262,14 +267,14 @@
             // openExcelToolStripMenuItem
             // 
             this.openExcelToolStripMenuItem.Name = "openExcelToolStripMenuItem";
-            this.openExcelToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.openExcelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openExcelToolStripMenuItem.Text = "Import Excel";
             this.openExcelToolStripMenuItem.Click += new System.EventHandler(this.openExcelToolStripMenuItem_Click);
             // 
             // saveExcelToolStripMenuItem
             // 
             this.saveExcelToolStripMenuItem.Name = "saveExcelToolStripMenuItem";
-            this.saveExcelToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.saveExcelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveExcelToolStripMenuItem.Text = "Export Excel";
             this.saveExcelToolStripMenuItem.Click += new System.EventHandler(this.saveExcelToolStripMenuItem_Click);
             // 
@@ -288,15 +293,53 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // timeSpanChartRangeControlClient1
+            // txttaikhoan
             // 
-            this.timeSpanChartRangeControlClient1.CustomizeSeries += new System.EventHandler<DevExpress.XtraEditors.ClientDataSourceProviderCustomizeSeriesEventArgs>(this.timeSpanChartRangeControlClient1_CustomizeSeries);
+            this.txttaikhoan.Location = new System.Drawing.Point(73, 544);
+            this.txttaikhoan.Name = "txttaikhoan";
+            this.txttaikhoan.Size = new System.Drawing.Size(163, 20);
+            this.txttaikhoan.TabIndex = 12;
+            this.txttaikhoan.Text = "phunghungdung7253@gmail.com";
+            // 
+            // txtmatkhau
+            // 
+            this.txtmatkhau.Location = new System.Drawing.Point(73, 578);
+            this.txtmatkhau.Name = "txtmatkhau";
+            this.txtmatkhau.Size = new System.Drawing.Size(163, 20);
+            this.txtmatkhau.TabIndex = 13;
+            this.txtmatkhau.Text = "OOFmkiA3";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 581);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Password";
+            // 
+            // tmrPlan03
+            // 
+            this.tmrPlan03.Tick += new System.EventHandler(this.tmrPlan03_Tick);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(15, 547);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(32, 13);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Email";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(226, 541);
+            this.ClientSize = new System.Drawing.Size(250, 610);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtmatkhau);
+            this.Controls.Add(this.txttaikhoan);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.txtKeywords);
             this.Controls.Add(this.label5);
@@ -320,7 +363,6 @@
             this.groupBox2.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.timeSpanChartRangeControlClient1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -353,7 +395,11 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private DevExpress.XtraEditors.TimeSpanChartRangeControlClient timeSpanChartRangeControlClient1;
+        private System.Windows.Forms.TextBox txttaikhoan;
+        private System.Windows.Forms.TextBox txtmatkhau;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer tmrPlan03;
+        private System.Windows.Forms.Label label6;
     }
 }
 
